@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon server.js",
     "migrate": "npx knex migrate:latest",
     "rollback": "npx knex migrate:rollback",
     "seed": "npx knex seed:run"
@@ -12,7 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
     "knex": "^2.3.0",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20"
   }
 }
