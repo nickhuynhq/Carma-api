@@ -13,12 +13,12 @@ exports.seed = function (knex) {
     .then(function () {
       return knex('cars').insert(carsData);
     })
-    // .then(() => {
-    //   return knex('users').del();
-    // })
-    // .then(() => {
-    //   return knex('users').insert(usersData);
-    // })
+    .then(() => {
+      return knex('users').del();
+    })
+    .then(() => {
+      return knex('users').insert(usersData);
+    })
     // .then(() => {
     //   return knex('saved_vehicles').del();
     // })
