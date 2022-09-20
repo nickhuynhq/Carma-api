@@ -1,34 +1,19 @@
-const knex = require("knex")(require('./knexfile'));
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const PORT = 8080;
+app.use(express.static('public'))
+const cors = require('cors')
+const carRoutes = require("./routes/cars.js")
+const PORT = process.env.PORT;
 
-app.get("/cars", async (req, res) => {
-    knex
-        .select("*")
-        .from("cars")
-        .then(userData => {
-            res.json(userData);
-        })
-        .catch(error => {
-            res.status(500).json({error});
-        })
+app.use(cors());
+app.use(express.json());
 
+app.use((req, res, next) => {
+    next();
 });
 
-
-// app.get("/posts", (req, res) => {
-//     knex
-//         .select("*")
-//         .from("post")
-//         .join("user", "user.id", "=", "post.user_id")
-//         .then(postData => {
-//             res.json(postData);
-//         })
-//         .catch(error => {
-//             res.status(500).json({error});
-//         })
-// });
+app.use("/cars", carRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
