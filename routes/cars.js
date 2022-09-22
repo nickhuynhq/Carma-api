@@ -16,13 +16,30 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/search", async (req, res) => {
+    console.log(req.query)
     knex
         .select("*")
         .from("cars")
-        .where("brand","=", req.body.brand)
-        .where("make","=", req.body.make)
-        .where("year","=", req.body.year)
+        .where("brand","=", req.query.brand)
+        .where("make","=", req.query.make)
+        .where("year","=", req.query.year)
         .then(carData => {
+            
+            res.json(carData);
+        })
+        .catch(error => {
+            res.status(500).json({error});
+        })
+});
+
+router.get("/searchType", async (req, res) => {
+    console.log(req.query)
+    knex
+        .select("*")
+        .from("cars")
+        .where("type","=", req.query.type)
+        .then(carData => {
+            
             res.json(carData);
         })
         .catch(error => {

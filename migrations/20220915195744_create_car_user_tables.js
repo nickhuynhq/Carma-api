@@ -5,14 +5,18 @@
 exports.up = function(knex) {
     return knex.schema.createTable("cars", function(table) {
         table.increments("id");
+        table.integer("car_id").unsigned().notNullable();
         table.string("brand").notNullable();
         table.string("make").notNullable();
-        table.integer("year").notNullable();
+        table.string("year").notNullable();
+        table.string("type").notNullable();
         table.float("fuel_economy").notNullable();
         table.float("price").notNullable();
         table.float("maintenance").notNullable();
         table.float("depreciation").notNullable();
         table.float("insurance").notNullable();
+        table.string("rating").notNullable();
+        table.string("image");
 
     }).createTable("users", function(table){
         table.increments("id");

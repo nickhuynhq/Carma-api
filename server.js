@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/cars", carRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
