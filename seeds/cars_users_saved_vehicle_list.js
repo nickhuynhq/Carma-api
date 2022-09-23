@@ -19,10 +19,10 @@ exports.seed = function (knex) {
     .then(() => {
       return knex('users').insert(usersData);
     })
-    // .then(() => {
-    //   return knex('saved_vehicles').del();
-    // })
-    // .then(() => {
-    //   return knex('saved_vehicles').insert(savedVehiclesData);
-    // });
+    .then(() => {
+      return knex('saved_vehicles').del();
+    })
+    .then(() => {
+      return knex('saved_vehicles').insert(savedVehiclesData);
+    });
 };

@@ -11,8 +11,8 @@ module.exports = [
     },
     {
         user_id: 2,
-        name: 'Bick Buynh',
-        dob: "1998-10-02",
+        name: 'Jessica Jung',
+        dob: "1995-06-15",
         gender: "Female",
         province: "Ontario",
         city: "Barrie",
