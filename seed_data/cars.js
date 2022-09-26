@@ -92,8 +92,8 @@ module.exports = [
       fuel_economy: 7.4,
       price: 24275,
       maintenance: 148,
-      depreciation: 14973,
-      insurance: 1406,
+      depreciation: 1406,
+      insurance: 1927,
       rating: "A",
       image:"https://firebasestorage.googleapis.com/v0/b/carma-95b63.appspot.com/o/Corolla_2022_XSE_Hero_Image.png?alt=media&token=48345c4d-b225-4291-8a28-f049832ac2ee"
     },

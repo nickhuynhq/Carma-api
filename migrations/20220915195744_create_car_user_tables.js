@@ -19,8 +19,9 @@ exports.up = function(knex) {
         table.string("image");
 
     }).createTable("users", function(table){
-        table.increments("id");
-        table.integer("user_id").unsigned().notNullable();
+        table.increments("user_id");
+        table.string("username").notNullable();
+        table.string("password").notNullable();
         table.string("name", 30).notNullable();
         table.date("dob").notNullable();
         table.string("gender").notNullable();

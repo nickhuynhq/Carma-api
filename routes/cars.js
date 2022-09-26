@@ -16,7 +16,6 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/search", async (req, res) => {
-    console.log(req.query)
     knex
         .select("*")
         .from("cars")
@@ -33,7 +32,6 @@ router.get("/search", async (req, res) => {
 });
 
 router.get("/searchType", async (req, res) => {
-    console.log(req.query)
     knex
         .select("*")
         .from("cars")

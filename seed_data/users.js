@@ -2,6 +2,8 @@ module.exports = [
     {
       user_id: 1,
       name: 'Nick Huynh',
+      username: 'nickhuynh1',
+      password: 'abc123',
       dob: "1998-10-02",
       gender: "Male",
       province: "Ontario",
@@ -12,6 +14,8 @@ module.exports = [
     {
         user_id: 2,
         name: 'Jessica Jung',
+        username: 'jessicajung1',
+        password: 'abc123!',
         dob: "1995-06-15",
         gender: "Female",
         province: "Ontario",
