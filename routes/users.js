@@ -1,13 +1,40 @@
 const express = require("express");
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const knex = require("knex")(require('../knexfile'));
+require('dotenv').config()
 
-router.get("/", async (req, res) => {
+const authorize = (req, res, next) => {
+    const bearerTokenString = req.headers.authorization;
+
+    if (!bearerTokenString) {
+        return res.status(401).json({error: "Resource requires Bearer token in Authorization header"});
+    }
+
+    const splitBearerTokenString = bearerTokenString.split(" ");
+
+    if (splitBearerTokenString.length !== 2) {
+        return res.status(400).json({error: "Bearer token is malformed"});
+    }
+
+    const token = splitBearerTokenString[1];
+
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({error: "Invalid JWT"});
+        }
+
+        req.userId = decoded.user_id;
+        next();
+    });
+}
+
+router.get("/", authorize, async (req, res) => {
     knex
         .select("*")
         .from("users")
         .then(userData => {
-            res.json(userData);
+            res.staus(200),json(userData);
         })
         .catch(error => {
             res.status(500).json({error});
@@ -65,16 +92,20 @@ router.post("/login", async (req, res) => {
         .where({ username: username})
         .andWhere({ password: password});
 
-    if (foundUsers.length !== 1) {
-        // not found user
-        return res.status(401).json({ error: "Invalid login credentials" });
-    } else {
-        return res.status(200).json(foundUsers[0])
-    }
+        if (foundUsers.length !== 1) {
+            // not found user
+            return res.status(401).json({ error: "Invalid login credentials" });
+        }
+    
+        const user = foundUsers[0];
+        console.log(user)
+    
+        const token = jwt.sign({ user_id: user.user_id }, process.env.JWT_SECRET_KEY);    
+        res.json({
+            message: "Successfully logged in",
+            token
+        })
 });
-
-
-
 
 
 module.exports = router;
