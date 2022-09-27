@@ -2,32 +2,8 @@ const express = require("express");
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const knex = require("knex")(require('../knexfile'));
+const authorize = require("../functions.js")
 require('dotenv').config()
-
-const authorize = (req, res, next) => {
-    const bearerTokenString = req.headers.authorization;
-
-    if (!bearerTokenString) {
-        return res.status(401).json({error: "Resource requires Bearer token in Authorization header"});
-    }
-
-    const splitBearerTokenString = bearerTokenString.split(" ");
-
-    if (splitBearerTokenString.length !== 2) {
-        return res.status(400).json({error: "Bearer token is malformed"});
-    }
-
-    const token = splitBearerTokenString[1];
-
-    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
-        if (err) {
-            return res.status(403).json({error: "Invalid JWT"});
-        }
-
-        req.userId = decoded.user_id;
-        next();
-    });
-}
 
 router.get("/", authorize, async (req, res) => {
     knex
@@ -41,7 +17,7 @@ router.get("/", authorize, async (req, res) => {
         })
 });
 
-router.get("/:userId", async (req, res) => {
+router.get("/:userId", authorize, async (req, res) => {
     knex
         .select("*")
         .from("users")
@@ -60,6 +36,7 @@ router.post("/register", async (req, res) => {
             {   
                 username: req.body.username,
                 password: req.body.password,
+                email: req.body.email,
                 name: req.body.name,
                 dob: req.body.dob,
                 gender: req.body.gender,
@@ -98,13 +75,30 @@ router.post("/login", async (req, res) => {
         }
     
         const user = foundUsers[0];
-        console.log(user)
     
         const token = jwt.sign({ user_id: user.user_id }, process.env.JWT_SECRET_KEY);    
         res.json({
             message: "Successfully logged in",
             token
         })
+});
+
+router.put("/edit", authorize, async (req, res) => {
+
+    try {
+        const response = await knex('users')
+            .where("users.user_id", "=", req.userId)
+            .update(req.body);
+        if (response) {
+            res.status(200).json({updated: response})
+            console.log(response)
+        } else {
+            res.status(404).json({message: "Record not found"})
+        }
+    } catch (err) {
+        res.status(500).json({err})
+
+    }
 });
 
 

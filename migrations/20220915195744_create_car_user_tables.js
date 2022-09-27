@@ -22,7 +22,8 @@ exports.up = function(knex) {
         table.increments("user_id");
         table.string("username").notNullable();
         table.string("password").notNullable();
-        table.string("name", 30).notNullable();
+        table.string("name").notNullable();
+        table.string("email").notNullable();
         table.date("dob").notNullable();
         table.string("gender").notNullable();
         table.string("province").notNullable();
