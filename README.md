@@ -42,7 +42,17 @@ $ npm run migrate
 $ npm run seed
 ```
 
-5. Start Server
+5. Create your own .env file
+```
+  PORT=<PORT>
+  JWT_SECRET_KEY=<JWT_SECRET_KEY>
+  DB_HOST=<DB_HOST>
+  DB_USER=<DB_USER>
+  DB_PASSWORD=<DB_PASSWORD>
+  DB_DATABASE=<DB_DATABASE>
+```
+
+6. Start Server
 ```$ npm run dev```
 
 ## Author
