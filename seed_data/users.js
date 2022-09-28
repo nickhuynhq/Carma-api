@@ -1,0 +1,28 @@
+module.exports = [
+    {
+      user_id: 1,
+      name: 'Nick Huynh',
+      username: 'nickhuynh1',
+      password: 'Abc1234!',
+      email: "nickhuynh1@example.com",
+      dob: "1998-10-02",
+      gender: "Male",
+      province: "Ontario",
+      city: "Toronto",
+      commute_distance: 15,
+      commute_days: 5,
+    },
+    {
+        user_id: 2,
+        name: 'Jessica Jung',
+        username: 'jessicajung1',
+        password: 'Abc1234!',
+        email: "jessoo12@example.com",
+        dob: "1995-06-15",
+        gender: "Female",
+        province: "Ontario",
+        city: "Hamilton",
+        commute_distance: 25,
+        commute_days: 5,
+    },
+  ];
